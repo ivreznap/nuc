@@ -14,7 +14,7 @@ Scan started for $i
 
 mkdir $i
 
-subfinder -d $i | httpx >> $i/subdomains.txt
+subfinder -d $i | httpx >> $i/subdomains.txt >/dev/null
 
 echo "subdomains saved at $i/subdomains.txt." | notify
 
@@ -39,7 +39,13 @@ echo "Scan for takeovers completed." | notify
 nuclei -l $i/subdomains.txt -t vulnerabilities/ -o $i/vulnerabilities.txt
 echo "Scan for vulnerabilities completed." | notify
 
-cat $i/cves.txt | grep "Info" | notify
+cd $i
+
+grep -r "info" > info.txt | notify -data info.txt -bulk
+grep -r "low" > low.txt | notify -data low.txt -bulk
+grep -r "medium" > medium.txt | notify -data medium.txt -bulk
+grep -r "high" > high.txt | notify -data high.txt -bulk
+grep -r "critical" > critical.txt | notify -data critical.txt -bulk
 
 echo "
 .
