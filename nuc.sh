@@ -16,28 +16,36 @@ mkdir $i
 
 subfinder -d $i | httpx >> $i/subdomains.txt >/dev/null
 
-echo "subdomains saved at $i/subdomains.txt." | notify
+echo "Subdomains saved at $i/subdomains.txt." | notify
 
+echo "Scan for CVES started."
 nuclei -l $i/subdomains.txt -t cves/ -o $i/cves.txt
-echo "Scan for CVES completed." | notify
+echo "Scan for CVES completed." | notify -silent
 
+echo "Scan for Default-Logins started."
 nuclei -l $i/subdomains.txt -t default-logins/ -o $i/default-logins.txt
-echo "Scan for default-logins completed." | notify
+echo "Scan for default-logins completed." | notify -silent
 
+
+echo "Scan for Exposures started."
 nuclei -l $i/subdomains.txt -t exposures/ -o $i/exposures.txt
-echo "Scan for exposures completed." | notify
+echo "Scan for exposures completed." | notify -silent
 
 
+echo "Scan for Misconfigurations started."
 nuclei -l $i/subdomains.txt -t misconfiguration/ -o $i/misconfiguration.txt
-echo "Scan for misconfigurations completed." | notify
+echo "Scan for misconfigurations completed." | notify -silent
 
 
+echo "Scan for takeovers started."
 nuclei -l $i/subdomains.txt -t takeovers/ -o $i/takeovers.txt
-echo "Scan for takeovers completed." | notify
+echo "Scan for takeovers completed." | notify -silent
+
 
 
 nuclei -l $i/subdomains.txt -t vulnerabilities/ -o $i/vulnerabilities.txt
-echo "Scan for vulnerabilities completed." | notify
+echo "Scan for vulnerabilities completed." | notify -silent
+
 
 cd $i
 
