@@ -39,11 +39,11 @@ echo "Scan for vulnerabilities completed." | notify
 
 cd $i
 
-grep -r "info" >> info.txt ; notify -data info.txt -bulk
-grep -r "low" >> low.txt ; notify -data low.txt -bulk
-grep -r "medium" >> medium.txt ; notify -data medium.txt -bulk
-grep -r "high" >> high.txt ; notify -data high.txt -bulk
-grep -r "critical" >> critical.txt ; notify -data critical.txt -bulk
+ ​grep -r ​"​info​"​ --exclude=info.txt ​>>​ info.txt ​;​ notify -data info.txt -bulk 
+ ​grep -r ​"​low​"​ --exclude=low.txt ​>>​ low.txt ​;​ notify -data low.txt -bulk 
+ ​grep -r ​"​medium​"​ --exclude=medium.txt ​>>​ medium.txt ​;​ notify -data medium.txt -bulk 
+ ​grep -r ​"​high​"​ --exclude=high.txt ​>>​ high.txt ​;​ notify -data high.txt -bulk 
+ ​grep -r ​"​critical​"​ ​--exclude=critical.txt>>​ critical.txt ​;​ notify -data critical.txt -bulk
 
 echo "
 .
